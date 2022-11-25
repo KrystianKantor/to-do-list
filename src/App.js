@@ -10,21 +10,20 @@ class App extends React.Component {
     this.state = window.localStorage.getItem("tasks")
       ? {
           tasks: JSON.parse(window.localStorage.getItem("tasks")),
-          id: JSON.parse(window.localStorage.getItem("id")),
         }
-      : { tasks: [], id: 0 };
+      : { tasks: [] };
   }
 
   componentDidUpdate() {
     window.localStorage.setItem("tasks", JSON.stringify([...this.state.tasks]));
-    window.localStorage.setItem("id", this.state.id);
   }
 
   addTask = (task) => {
-    task["task_id"] = this.state.id;
     this.setState((prevState) => ({
-      tasks: [...prevState.tasks, task],
-      id: prevState.id + 1,
+      tasks: [...prevState.tasks, task].map((e, index) => {
+        e["task_id"] = index;
+        return e;
+      }),
     }));
   };
 
