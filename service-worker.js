@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/ChristianoCanteras/to-do-list/precache-manifest.806ded02c59328e63affddb3d901762e.js"
+  "/to-do-list/precache-manifest.4d68ad96fb9717a02072016f894dadad.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/ChristianoCanteras/to-do-list/index.html", {
+workbox.routing.registerNavigationRoute("/to-do-list/index.html", {
   
   blacklist: [/^\/_/,/\/[^/]+\.[^/]+$/],
 });
