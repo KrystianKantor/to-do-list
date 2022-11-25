@@ -1,5 +1,6 @@
 import React from "react";
 import Task from "./Task";
+import { List, Header, Icon } from "semantic-ui-react";
 
 const TaskList = (props) => {
   const task = (e) => (
@@ -18,9 +19,14 @@ const TaskList = (props) => {
 
   return (
     <div className="tasks-to-do">
-      <h2>Zadania do zrobienia:</h2>
+      <Header as="h2">
+        <Icon name="coffee" />
+        <Header.Content>Zadania do zrobienia</Header.Content>
+      </Header>
       {props.tasks.length ? (
-        <ul>{props.tasks.map((e) => task(e))}</ul>
+        <List divided relaxed>
+          {props.tasks.map((e) => task(e))}
+        </List>
       ) : (
         <span>Brak zadań do zrobienia</span>
       )}

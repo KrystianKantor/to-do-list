@@ -1,7 +1,9 @@
 import "./App.css";
-import AddTask from "./AddTask";
-import TaskList from "./TaskList";
-import { DoneTasks } from "./DoneTasks";
+import "semantic-ui-css/semantic.min.css";
+import { Grid, Button } from "semantic-ui-react";
+import AddTask from "./Components/AddTask";
+import TaskList from "./Components/TaskList";
+import { DoneTasks } from "./Components/DoneTasks";
 import React from "react";
 
 class App extends React.Component {
@@ -53,29 +55,56 @@ class App extends React.Component {
   };
 
   clearTasks = () => {
-    this.setState({ tasks: [], id: 0 });
+    this.setState({ tasks: [] });
     window.localStorage.clear();
   };
 
   render() {
     return (
-      <div>
-        <header>
-          <h1>Zadania do zrobienia</h1>
-        </header>
-        <AddTask addTask={this.addTask} id={this.state.tasks.length} />
-        <TaskList
-          tasks={this.state.tasks.filter((e) => !e.task_done)}
-          markAsDone={this.markAsDone}
-          deleteTask={this.deleteTask}
-        />
-        <DoneTasks
-          tasks={this.state.tasks.filter((e) => e.task_done)}
-        ></DoneTasks>
-        <footer>
-          <button onClick={this.clearTasks}>Wyczyść wszystko</button>
-        </footer>
-      </div>
+      <Grid padded celled stackable>
+        <Grid.Row color="violet">
+          <Grid.Column>
+            <header>
+              <h1>Zadania do zrobienia</h1>
+            </header>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row columns={2}>
+          <Grid.Column width={6}>
+            <Grid celled>
+              <AddTask addTask={this.addTask} id={this.state.tasks.length} />
+            </Grid>
+          </Grid.Column>
+          <Grid.Column width={10}>
+            <Grid celled>
+              <Grid.Row>
+                <Grid.Column>
+                  {" "}
+                  <TaskList
+                    tasks={this.state.tasks.filter((e) => !e.task_done)}
+                    markAsDone={this.markAsDone}
+                    deleteTask={this.deleteTask}
+                  />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+            <Grid celled>
+              <Grid.Row>
+                <Grid.Column>
+                  <DoneTasks
+                    tasks={this.state.tasks.filter((e) => e.task_done)}
+                  ></DoneTasks>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row padded>
+          <Grid.Column color="black" padded>
+            <Button onClick={this.clearTasks}>Wyczyść wszystko</Button>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
   }
 }
