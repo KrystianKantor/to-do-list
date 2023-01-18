@@ -1,34 +1,45 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Button, List } from "semantic-ui-react";
+import { MARKUP_AS_DONE, REMOVE_TASK } from "../Redux/tasksReducer";
 
 const Task = (props) => {
-  if (!props.done) {
+  const dispatch = useDispatch();
+
+  const { undone, taskData } = props;
+  const {
+    task_id: id,
+    task_title: title,
+    task_date: date,
+    task_time: time,
+    task_important: important,
+    date_done,
+    time_done,
+  } = taskData;
+
+  const setDone = () => {
+    dispatch(MARKUP_AS_DONE(id));
+  };
+
+  const removeTask = () => {
+    dispatch(REMOVE_TASK(id));
+  };
+
+  if (undone) {
     return (
       <List.Item>
         <List.Icon name="x" size="large" verticalAlign="middle" />
         <List.Content>
           <List.Header>
-            {props.important ? (
-              <span style={{ color: "red" }}>{props.title}</span>
-            ) : (
-              props.title
-            )}
+            {important ? <span style={{ color: "red" }}>{title}</span> : title}
           </List.Header>
           <List.Description>
-            wykonaj do {props.date} godz. {props.time}
+            wykonaj do {date} godz. {time}
           </List.Description>
         </List.Content>
         <List.Content>
-          <Button
-            onClick={() => {
-              props.markAsDone(props.id);
-            }}
-          >
-            oznacz jako wykonane
-          </Button>
-          <Button onClick={() => props.deleteTask(props.id)}>
-            usuń zadanie
-          </Button>
+          <Button onClick={setDone}>oznacz jako wykonane</Button>
+          <Button onClick={removeTask}>usuń zadanie</Button>
         </List.Content>
       </List.Item>
     );
@@ -37,9 +48,12 @@ const Task = (props) => {
       <List.Item>
         <List.Icon name="check" size="large" verticalAlign="middle" />
         <List.Content>
-          <List.Header>{props.title}</List.Header>
+          <List.Header>{title}</List.Header>
           <List.Description>
-            wykonano dnia {props.dateDone} o godzinie {props.timeDone}
+            Termin wykonania do {date}, do godziny {time ? time : "--:--"}
+          </List.Description>
+          <List.Description>
+            Wykonano dnia {date_done} o godzinie {time_done}
           </List.Description>
         </List.Content>
       </List.Item>
