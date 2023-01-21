@@ -3,10 +3,9 @@ import { useDispatch } from "react-redux";
 import { Button, List } from "semantic-ui-react";
 import { MARKUP_AS_DONE, REMOVE_TASK } from "../Redux/tasksReducer";
 
-const Task = (props) => {
+const Task = ({ undone, taskData }) => {
   const dispatch = useDispatch();
 
-  const { undone, taskData } = props;
   const {
     task_id: id,
     task_title: title,
@@ -18,7 +17,9 @@ const Task = (props) => {
   } = taskData;
 
   const setDone = () => {
-    dispatch(MARKUP_AS_DONE(id));
+    let date = new Date().toLocaleDateString();
+    let time = new Date().toLocaleTimeString();
+    dispatch(MARKUP_AS_DONE({id, date, time}));
   };
 
   const removeTask = () => {

@@ -3,12 +3,22 @@ import { Grid, Button } from "semantic-ui-react";
 import AddTask from "./Components/AddTask";
 import TasksList from "./Components/TasksList";
 import { DoneTasks } from "./Components/DoneTasks";
-import React from "react";
+import { clearAllDB } from "./Database/db";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getTasks, REMOVE_ALL } from "./Redux/tasksReducer";
 
 function App() {
-  const clearTasks = () => {
-    console.log("clear tasks");
+  const dispatch = useDispatch();
+
+  const clearAll = () => {
+    clearAllDB();
+    dispatch(REMOVE_ALL());
   };
+
+  useEffect(() => {
+    dispatch(getTasks());
+  }, []);
 
   return (
     <Grid padded celled stackable>
@@ -44,7 +54,7 @@ function App() {
       </Grid.Row>
       <Grid.Row>
         <Grid.Column color="black">
-          <Button onClick={clearTasks}>Wyczyść wszystko</Button>
+          <Button onClick={clearAll}>Wyczyść wszystko</Button>
         </Grid.Column>
       </Grid.Row>
     </Grid>

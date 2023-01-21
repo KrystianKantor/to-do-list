@@ -11,6 +11,8 @@ const TasksList = () => {
       tasksFromStore.map((task) => {
         if (!task.task_done) {
           return <Task taskData={task} key={task.task_id} undone />;
+        } else {
+          return null;
         }
       })
     ) : (

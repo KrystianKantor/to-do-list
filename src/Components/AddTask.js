@@ -59,7 +59,7 @@ const AddTask = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (state.task_title !== "" && state.task_date) {
-      dispatch(ADD_TASK({ state }));
+      dispatch(ADD_TASK(state));
       setState({ ...initialStateTask, task_id: id() });
     } else {
       window.alert("Jeśli masz coś do zrobienia wpisz zadanie do formularza");
